@@ -11,18 +11,18 @@ alert(s);
 */
 //var page = document.body
 //alert(page)
+/*
 var s = document.createElement('script');
 
 s.src = chrome.extension.getURL('content.js');
 
-s.onload = function () { this.remove(); };
-
 document.head.appendChild(s);
+*/
 
 $("a").hover(function() {
     console.log("test");
 }, function() {
-}
+})
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
