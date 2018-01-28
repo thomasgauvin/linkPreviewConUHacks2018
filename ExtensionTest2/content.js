@@ -21,28 +21,34 @@ document.head.appendChild(s);
 
 
 //Adds our popup text to the html file
-var delayInMilliseconds = 700; //1 second
+var delayInMilliseconds = 700;
+
 
 var block_to_insert = document.createElement('div');
 
+
 $(block_to_insert).attr("id", "popup");
-$(block_to_insert).attr("style","background-color:#FFFFFF;border-style:double;position:absolute;width: 330px; visibility: hidden; padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;");
+$(block_to_insert).attr("style","background-color:#FFFFFF;border-style:double;position:absolute;width: 330px; visibility: hidden; padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;");
 //$(paragraph).attr("style", "padding-top: 50px;padding-right: 10px;padding-bottom: 50px;padding-left: 10px;");
+var title = document.createElement('p');
 var paragraph = document.createElement('p');
+paragraph.innerHTML = "Title:"
 paragraph.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
+block_to_insert.appendChild(title);
 block_to_insert.appendChild(paragraph);
 document.body.appendChild(block_to_insert);
 
 
 $("a").hover(function (event) {
     var destination = $(this).attr("href");
+    var titleOfNextPage = $(this).attr("title");
     document.getElementById("popup").innerHTML = destination;
-    //httpDestination = destination.substring(0,3) + destination.substring(4);
 
     $.ajax({
         url: destination, success: function (data) {
               var content = document.createElement('span');
               content.innerHTML = data;
+
 
               var settings = {
                     "async": true,
@@ -62,7 +68,7 @@ $("a").hover(function (event) {
                   }
 
               $.ajax(settings).done(function (response) {
-                document.getElementById("popup").innerHTML=response.summary;
+                document.getElementById("popup").innerHTML= "<strong>" + titleOfNextPage + "</strong>" + ": " + response.summary;
               })
           ;}})
 
@@ -85,7 +91,7 @@ $("a").hover(function (event) {
     document.getElementById("popup").innerHTML = destination;
     $.ajax({
         url: destination, success: function (data) {
-            var x = event.pageX-350, y = event.pageY +10;
+            var x = event.pageX-350, y = event.pageY +20;
             //Data contains the html file of the hovered webpage
             //TODO: Grab only the content text from the html document
             //so that it can be passed to the summarizer
@@ -107,4 +113,8 @@ $("a").hover(function (event) {
 
 /*,function() {
     document.getElementById("popup").style.visibility = "hidden";
-}*/);
+}*/,
+
+function () {
+    document.getElementById("popup").style.visibility = "hidden";
+});
