@@ -26,7 +26,7 @@ var delayInMilliseconds = 700; //1 second
 var block_to_insert = document.createElement('div');
 
 $(block_to_insert).attr("id", "popup");
-$(block_to_insert).attr("style","background-color:#FFFFFF;border-style:double;position:absolute;max-width: 340px; visibility: hidden; padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;");
+$(block_to_insert).attr("style","background-color:#FFFFFF;border-style:double;position:absolute;width: 330px; visibility: hidden; padding-top: 25px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;");
 //$(paragraph).attr("style", "padding-top: 50px;padding-right: 10px;padding-bottom: 50px;padding-left: 10px;");
 var paragraph = document.createElement('p');
 paragraph.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
