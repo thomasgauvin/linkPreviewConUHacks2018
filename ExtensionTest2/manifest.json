@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "Cool Extension",
-    "version": "0.1",
+    "name": "Hyperlink Preview",
+    "version": "0.2",
     
     "content_scripts": [
         {
