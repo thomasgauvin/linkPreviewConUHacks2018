@@ -20,7 +20,6 @@ document.head.appendChild(s);
 */
 
 var enabled = false;
-console.log("Enabled: " + enabled);
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if( request.message === "clicked_browser_action" ) {
@@ -28,7 +27,6 @@ chrome.runtime.onMessage.addListener(
             enabled = true;
         else
             enabled = false;
-        console.log("Browser action click set enabled to " + enabled);
     }
   }
 );
@@ -57,13 +55,11 @@ document.body.appendChild(block_to_insert);
 var titleOfNextPage = "";
 
 $("a").hover(function (event) {
-    console.log("Hovering a link while enabled is " + enabled);
     if (enabled == true) {
         var destination = $(this).attr("href");
         titleOfNextPage = $(this).attr("title");
         $(this).attr("title", "");
         document.getElementById("popup").innerHTML = '<img src="https://www.wallies.com/filebin/images/loading_apple.gif" id="spinner" alt="loading..." style="display: block; margin-left:auto; margin-right:auto; width:80px; height:80px;" />';
-
 
         $.ajax({
             url: destination, success: function (data) {
