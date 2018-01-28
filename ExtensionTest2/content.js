@@ -49,17 +49,32 @@ $("#popup").hover(function (event) {
 });
 
 
+
 $("a").hover(function (event) {
-    
-    document.getElementById("popup").innerHTML = $(this).attr("href");
-    var x = event.pageX, y = event.pageY + 10;
-    document.getElementById("popup").style.left = x+'px';
-    document.getElementById("popup").style.top = y+'px';
-    document.getElementById("popup").style.visibility = "visible";
+    var destination = $(this).attr("href");
+    document.getElementById("popup").innerHTML = destination;
+    $.ajax({
+        url: destination, success: function (data) {
+            var x = event.pageX, y = event.pageY + 10;
+            //Data contains the html file of the hovered webpage
+            //TODO: Grab only the content text from the html document
+            //so that it can be passed to the summarizer
+
+            //TODO: Set the inner html to the output of the summarizer (use
+            //callback functions
+            //document.getElementById("popup").innerHTML = data;
+            document.getElementById("popup").style.left = x + 'px';
+            document.getElementById("popup").style.top = y + 'px';
+            document.getElementById("popup").style.visibility = "visible";
+        }
+    });
+
 }
 ,function() {
     document.getElementById("popup").style.visibility = "hidden";
 });
+
+
 
 
 
