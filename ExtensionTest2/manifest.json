@@ -13,6 +13,11 @@
         }
     ],
     "browser_action": {
+        "default_title": "Toggle Hyperlink Preview",
         "default_icon": "icon.png"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
     }
 }

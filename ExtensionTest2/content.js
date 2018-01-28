@@ -19,6 +19,15 @@ s.src = chrome.extension.getURL('content.js');
 document.head.appendChild(s);
 */
 
+var enabled = false;
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if( request.message === "clicked_browser_action" ) {
+        enabled = true;
+    }
+  }
+);
 
 //Adds our popup text to the html file
 var delayInMilliseconds = 3000;//3 seconds
@@ -44,6 +53,8 @@ document.body.appendChild(block_to_insert);
 var titleOfNextPage = "";
 
 $("a").hover(function (event) {
+    if (enabled == false)
+        return;
     var destination = $(this).attr("href");
     titleOfNextPage = $(this).attr("title");
     $(this).attr("title","");
