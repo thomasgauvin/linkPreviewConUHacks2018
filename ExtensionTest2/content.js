@@ -21,28 +21,34 @@ document.head.appendChild(s);
 
 
 //Adds our popup text to the html file
-var delayInMilliseconds = 700;
+var delayInMilliseconds = 3000;//3 seconds
 
+var HEIGHT = window.screen.availHeight;
+var WIDTH = window.screen.availWidth;
 
 var block_to_insert = document.createElement('div');
 
+//$( document.body ).css( 'pointer-events', 'none' );
 
 $(block_to_insert).attr("id", "popup");
-$(block_to_insert).attr("style","background-color:#FFFFFF;border-style:double;position:absolute;width: 330px; visibility: hidden; padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;");
+$(block_to_insert).attr("style","background-color:#FFFFFF;border-style:double;border-width:3px;position:absolute;width: 330px; maxLength:250px; visibility: hidden; padding-top: 10px;padding-right: 10px;padding-bottom: 10px;padding-left: 10px;");
 //$(paragraph).attr("style", "padding-top: 50px;padding-right: 10px;padding-bottom: 50px;padding-left: 10px;");
 var title = document.createElement('p');
 var paragraph = document.createElement('p');
-paragraph.innerHTML = "Title:"
-paragraph.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
+paragraph.innerHTML = '<img src="https://www.wallies.com/filebin/images/loading_apple.gif" id="spinner" alt="loading..." style="display: block; margin-left:auto; margin-right:auto; width:80px; height:80px;" />'
 block_to_insert.appendChild(title);
 block_to_insert.appendChild(paragraph);
+
 document.body.appendChild(block_to_insert);
 
+var titleOfNextPage = "";
 
 $("a").hover(function (event) {
     var destination = $(this).attr("href");
-    var titleOfNextPage = $(this).attr("title");
-    document.getElementById("popup").innerHTML = destination;
+    titleOfNextPage = $(this).attr("title");
+    $(this).attr("title","");
+    document.getElementById("popup").innerHTML = '<img src="https://www.wallies.com/filebin/images/loading_apple.gif" id="spinner" alt="loading..." style="display: block; margin-left:auto; margin-right:auto; width:80px; height:80px;" />';
+
 
     $.ajax({
         url: destination, success: function (data) {
@@ -67,31 +73,69 @@ $("a").hover(function (event) {
                     }
                   }
 
+
               $.ajax(settings).done(function (response) {
-                document.getElementById("popup").innerHTML= "<strong>" + titleOfNextPage + "</strong>" + ": " + response.summary;
+                if (!(response.summary.includes("undefined"))){
+                  setTimeout(function(){ document.getElementById("popup").innerHTML= "<strong>" + titleOfNextPage + "</strong>" + ": " + response.summary; }, 700);
+                }
+                else{
+                  document.getElementById("popup").style.visibility = "hidden";
+                  $(this).attr("title",titleOfNextPage);
+                }
+
               })
           ;}})
 
+
+},
+
+function () {
+    document.getElementById("popup").style.visibility = "hidden";
+    $(this).attr("title",titleOfNextPage);
 
 })
 
 $("#popup").hover(function (event) {
     document.getElementById("popup").style.visibility = "visible";
+
 }
 ,
 
 function () {
     document.getElementById("popup").style.visibility = "hidden";
+    $(this).attr("title",titleOfNextPage);
+
 });
 
 
 
 $("a").hover(function (event) {
     var destination = $(this).attr("href");
-    document.getElementById("popup").innerHTML = destination;
+    document.getElementById("popup").innerHTML = '<img src="https://www.wallies.com/filebin/images/loading_apple.gif" id="spinner" alt="loading..." style="display: block; margin-left:auto; margin-right:auto;width:80px; height:80px;" />';
     $.ajax({
         url: destination, success: function (data) {
-            var x = event.pageX-350, y = event.pageY +20;
+            var x, y;
+            if (event.clientX<380){
+              if(event.clientY+200>HEIGHT){
+                x=event.pageX+10;
+                y=event.pageY-130;
+              }
+              else {
+                x=event.pageX+10;
+                y=event.pageY+15;
+              }
+            }
+            else{
+              if(event.clientY+200>HEIGHT){
+                x=event.pageX-350;
+                y=event.pageY-130;
+              }
+              else {
+                x=event.pageX-350;
+                y=event.pageY+15;
+              }
+            }
+
             //Data contains the html file of the hovered webpage
             //TODO: Grab only the content text from the html document
             //so that it can be passed to the summarizer
