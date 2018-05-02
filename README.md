@@ -7,3 +7,5 @@ text that the link is sending to.
 
 The final extension can be found in extensionTest2 and can be loaded into chrome 
 as an unpacked extension.
+
+To see the original post on devpost: https://devpost.com/software/linkpreviewconuhacks2018
