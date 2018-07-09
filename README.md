@@ -9,3 +9,5 @@ The final extension can be found in extensionTest2 and can be loaded into chrome
 as an unpacked extension.
 
 To see the original post on devpost: https://devpost.com/software/linkpreviewconuhacks2018
+
+![livelinkpreview](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/594/423/datas/gallery.jpg)
